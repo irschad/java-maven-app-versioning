@@ -77,6 +77,7 @@ pipeline {
                           sh 'git add .'
                           sh "git commit -m 'ci: version bump'"
                           sh 'git push origin HEAD:master'
+                      }
                   }
               }
           }
