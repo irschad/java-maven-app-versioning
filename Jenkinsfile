@@ -1,4 +1,4 @@
-imort org.codehaus.mojo:build-helper-maven-plugin:3.6.0:parse-version
+import org.codehaus.mojo:build-helper-maven-plugin:3.6.0:parse-version
 
 pipeline {   
     agent any
