@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage("build jar") {
+        stage('build jar') {
             steps {
                 script {
                     echo 'building the application...'
@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        stage("build image") {
+        stage('build image') {
             when {
                 expression {
                     BRANCH_NAME == "master"
@@ -46,7 +46,7 @@ pipeline {
             }
         }
 
-        stage("deploy") {
+        stage('deploy') {
             when {
                 expression {
                     BRANCH_NAME == "master"
@@ -58,7 +58,7 @@ pipeline {
                 }
             }
         }
-        stage("commit version update") {
+        stage('commit version update') {
              when {
                  expression {
                      BRANCH_NAME == "master"
@@ -80,4 +80,4 @@ pipeline {
              }
          }
     }
-
+}
