@@ -5,20 +5,26 @@ pipeline {
     tools {
         maven 'Maven'
     }
-    stages {
-        stage("init") {
+        stages {
+          stage('increment version') {
             steps {
                 script {
-                    gv = load "script.groovy"
-                    echo "Executing pipeline for branch $BRANCH_NAME"
-                    echo "Testing the webhook.."
+                    echo "Incrementing app version"
+                    sh 'mvn builder-helper:parse-version versions:set \
+                       -DnewVersion=\\\$parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
+                       versions:commit'
+                    def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
+                    def version = matcher[0][1]
+                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
                 }
             }
         }
+
         stage("build jar") {
             steps {
                 script {
-                    gv.buildJar()
+                    echo 'building the application...'
+                    sh 'mvn clean package'
 
                 }
             }
@@ -32,7 +38,12 @@ pipeline {
             }
             steps {
                 script {
-                    gv.buildImage()
+                    echo "building the docker image..."
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "docker build -t irschad/java-app:${IMAGE_NAME} .""
+                        sh 'echo $PASS | docker login -u $USER --password-stdin'
+                        sh "docker push irschad/java-app:${IMAGE_NAME}"
+                    }
                 }
             }
         }
@@ -45,7 +56,7 @@ pipeline {
             }
             steps {
                 script {
-                    gv.deployApp()
+                    echo 'deploying the application...
                 }
             }
         }               
