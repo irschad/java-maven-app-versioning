@@ -3,7 +3,7 @@ pipeline {
     tools {
         maven 'Maven'
     }
-        stages {
+    stages {
           stage('increment version') {
             steps {
                 script {
@@ -16,7 +16,7 @@ pipeline {
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
                 }
             }
-        }
+          }
 
         stage('build jar') {
             steps {
