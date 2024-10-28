@@ -67,7 +67,8 @@ pipeline {
               }
               steps {
                   script {
-                     // withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                      withCredentials([gitusernamePassword(credentialsId: 'github-credentials', gitToolName: 'Default')]) {
+                       //passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                           sh 'git config --global user.email "jenkins@example.com"'
                           sh 'git config --global user.name "jenkins"'
                           sh 'git status'
@@ -78,7 +79,7 @@ pipeline {
                           sh 'git add .'
                           sh "git commit -m 'ci: version bump'"
                           sh 'git push origin HEAD:master'
-                    //  }
+                     }
                   }
               }
           }
