@@ -73,10 +73,7 @@ pipeline {
                           sh 'git status'
                           sh 'git branch'
                           sh 'git config --list'
-                          echo "Username"
-                          echo $USER
-                          echo $PASS
-                          sh "git remote set-url origin https://$USER:$PASS@github.com/irschad/java-maven-app-versioning.git"
+                          sh "git remote set-url origin https://${USER}:${PASS}@github.com/irschad/java-maven-app-versioning.git"
                           sh 'git add .'
                           sh "git commit -m 'ci: version bump'"
                           sh 'git push origin HEAD:master'
