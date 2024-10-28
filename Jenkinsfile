@@ -67,7 +67,7 @@ pipeline {
               }
               steps {
                   script {
-                      withCredentials([UsernamePassword(credentialsId: 'jenkinspush', passwordVariable: 'PAT' , usernameVariable: 'USER')]) {
+                      withCredentials([usernamePassword(credentialsId: 'jenkinspush', passwordVariable: 'PAT' , usernameVariable: 'USER')]) {
                        //passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                        //   sh 'git checkout master'
                           sh 'git remote set-head origin master'
