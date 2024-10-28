@@ -69,6 +69,7 @@ pipeline {
                   script {
                       withCredentials([gitUsernamePassword(credentialsId: 'github-credentials', gitToolName: 'Default')]) {
                        //passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                          sh 'git checkout master'
                           sh 'git config --global user.email "jenkins@example.com"'
                           sh 'git config --global user.name "jenkins"'
                           sh 'git status'
