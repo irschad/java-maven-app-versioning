@@ -67,7 +67,7 @@ pipeline {
               }
               steps {
                   script {
-                   //   withCredentials([gitUsernamePassword(credentialsId: 'github-credentials', gitToolName: 'Default')]) {
+                      withCredentials([UsernamePassword(credentialsId: 'jenkinspush', passwordVariable: 'PAT' , usernameVariable: 'USER')]) {
                        //passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                        //   sh 'git checkout master'
                           sh 'git remote set-head origin master'
@@ -77,10 +77,10 @@ pipeline {
                           sh 'git add .'
                           sh 'git branch'
                           sh 'git config --list'
-                          sh "git remote set-url origin https://gittoken@github.com/irschad/java-maven-app-versioning.git"
+                          sh "git remote set-url origin https://${USER}:${PAT}:@github.com/irschad/java-maven-app-versioning.git"
                           sh "git commit -m 'ci: version bump'"
                           sh 'git push origin HEAD:master'
-                   //  }
+                    }
                   }
               }
           }
