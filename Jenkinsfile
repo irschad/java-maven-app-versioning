@@ -67,7 +67,7 @@ pipeline {
               }
               steps {
                   script {
-                      withCredentials([gitUsernamePassword(credentialsId: 'github-credentials', gitToolName: 'Default')]) {
+                   //   withCredentials([gitUsernamePassword(credentialsId: 'github-credentials', gitToolName: 'Default')]) {
                        //passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                        //   sh 'git checkout master'
                           sh 'git remote set-head origin master'
@@ -80,7 +80,7 @@ pipeline {
                       //    sh "git remote set-url origin https://${USER}:${PASS}@github.com/irschad/java-maven-app-versioning.git"
                           sh "git commit -m 'ci: version bump'"
                           sh 'git push origin HEAD:master'
-                     }
+                   //  }
                   }
               }
           }
