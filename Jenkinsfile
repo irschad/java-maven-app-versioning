@@ -69,6 +69,8 @@ pipeline {
                   script {
                       withCredentials([usernamePassword(credentialsId: 'jenkinspush', passwordVariable: 'PAT' , usernameVariable: 'USER')]) {
                           sh "git remote set-url origin https://${PAT}@github.com/irschad/java-maven-app-versioning.git"
+                          sh 'git config --global user.email "jenkins@example.com"'
+                          sh 'git config --global user.name "jenkins"
                           sh 'git add .'
                           sh "git commit -m 'ci: version bump'"
                           sh 'git push origin HEAD:master'
