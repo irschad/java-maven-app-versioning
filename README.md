@@ -40,7 +40,7 @@ stage('increment version') {
         }
     }
 }
-
+```
 
 
 ### Build Java Application and Clean Old Artifacts
@@ -56,7 +56,7 @@ stage('build jar') {
         }
     }
 }
-
+```
 
 This ensures that only the latest JAR file is included in the Docker image.
 
@@ -79,7 +79,7 @@ stage('build image') {
         }
     }
 }
-
+```
 
 ## Commit Version Update to Git Repository
 
@@ -102,7 +102,7 @@ stage('commit version update') {
         }
     }
 }
-
+```
 
 Note: The `jenkinspush` credential used in the above code refers to a Personal Access Token (PAT) generated from GitHub. Here's how it can be created and configured:
 
